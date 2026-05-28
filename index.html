@@ -426,8 +426,8 @@
 <!-- Background music -->
 <audio id="bg-music" loop preload="auto"></audio>
 <button id="mute-btn" onclick="handleMusicBtn()">
-  <span id="mute-icon">♪</span>
-  <span id="mute-label">Play Music</span>
+  <span id="mute-icon">🔊</span>
+  <span id="mute-label">Mute</span>
 </button>
 
 <!-- Lotus — right side, depth-of-field blur, blended edges -->
@@ -640,31 +640,62 @@ function setBtnState(icon, label) {
   document.getElementById('mute-label').textContent = label;
 }
 
-/* Auto-start muted after 2 s — all desktop & most Android browsers allow this */
-setTimeout(function() {
-  bgMusic.muted = true;
+/* Remove all auto-unmute listeners once triggered */
+function removeAutoUnmute() {
+  ['click','touchstart','touchend','keydown'].forEach(function(e) {
+    document.removeEventListener(e, autoUnmuteOnInteraction);
+  });
+}
+function autoUnmuteOnInteraction() {
+  if (!musicStarted || !bgMusic.muted) return;
+  bgMusic.muted = false;
+  setBtnState('🔊', 'Mute');
+  removeAutoUnmute();
+}
+
+function startMusic() {
+  /* Attempt 1: play with sound (works on desktop & some Android) */
+  bgMusic.muted = false;
   bgMusic.play().then(function() {
     musicStarted = true;
-    setBtnState('🔇', 'Unmute');
+    setBtnState('🔊', 'Mute');
   }).catch(function() {
-    /* Autoplay fully blocked (some iOS) — button stays as Play Music */
+    /* Attempt 2: muted autoplay (allowed everywhere) */
+    bgMusic.muted = true;
+    bgMusic.play().then(function() {
+      musicStarted = true;
+      setBtnState('🔇', 'Tap to Unmute');
+      /* Auto-unmute the instant visitor touches/clicks anything */
+      ['click','touchstart','touchend','keydown'].forEach(function(e) {
+        document.addEventListener(e, autoUnmuteOnInteraction);
+      });
+    }).catch(function() {
+      /* Attempt 3: fully blocked — manual button */
+      setBtnState('♪', 'Play Music');
+    });
   });
-}, 2000);
+}
+
+/* Fire immediately when DOM is ready */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startMusic);
+} else {
+  startMusic();
+}
 
 function handleMusicBtn() {
   if (!musicStarted) {
-    /* First tap on mobile that blocked autoplay — start with sound */
     bgMusic.muted = false;
     bgMusic.volume = 0.7;
     bgMusic.play().then(function() {
       musicStarted = true;
+      removeAutoUnmute();
       setBtnState('🔊', 'Mute');
-    }).catch(function() {
-      setBtnState('♪', 'Play Music');
-    });
+    }).catch(function() { setBtnState('♪', 'Play Music'); });
   } else if (bgMusic.muted) {
     bgMusic.muted = false;
     setBtnState('🔊', 'Mute');
+    removeAutoUnmute();
   } else {
     bgMusic.muted = true;
     setBtnState('🔇', 'Unmute');
