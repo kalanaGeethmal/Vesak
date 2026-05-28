@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>මෙත්තා · Metta · Vesak 2025</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
-<script src="https://www.youtube.com/iframe_api"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -357,7 +356,7 @@
   }
 
   /* ── MUSIC PLAYER BUTTON ── */
-  #yt-container { position:fixed; width:1px; height:1px; opacity:0; pointer-events:none; }
+  #yt-container { position:fixed; width:0; height:0; overflow:hidden; pointer-events:none; }
   #mute-btn {
     position: fixed;
     bottom: 2.5vh;
@@ -423,11 +422,17 @@
   onerror="this.style.display='none'"
   onload="document.querySelectorAll('.topbar-logo').forEach(el=>el.style.display='none')">
 
-<!-- Music player (hidden) + mute toggle button -->
-<div id="yt-container"><div id="yt-frame"></div></div>
+<!-- Music player (hidden iframe autoplays muted; auto-unmutes on first interaction) -->
+<div id="yt-container">
+  <iframe id="yt-iframe"
+    src="https://www.youtube.com/embed/08_QKR_giVE?autoplay=1&mute=1&loop=1&playlist=08_QKR_giVE&start=5&controls=0&rel=0&enablejsapi=1"
+    allow="autoplay; encrypted-media"
+    frameborder="0" width="1" height="1">
+  </iframe>
+</div>
 <button id="mute-btn" onclick="toggleMute()">
   <span id="mute-icon">🔇</span>
-  <span id="mute-label">Music</span>
+  <span id="mute-label">Unmute</span>
 </button>
 
 <!-- Lotus — right side, depth-of-field blur, blended edges -->
