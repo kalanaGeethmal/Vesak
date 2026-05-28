@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>මෙත්තා · Metta · Vesak 2025</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<script src="https://www.youtube.com/iframe_api"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -51,8 +52,8 @@
   }
 
   @keyframes buddhaGlow {
-    0%,100% { opacity: 0.18; transform: translateX(-10vw) scale(1); }
-    50%      { opacity: 0.25; transform: translateX(-10vw) scale(1.02); }
+    0%,100% { opacity: 0.18; transform: translateX(-20vw) scale(1); }
+    50%      { opacity: 0.25; transform: translateX(-20vw) scale(1.02); }
   }
 
   /* Halo rings */
@@ -98,17 +99,16 @@
   }
 
   /* ── JIT GROUP LOGO — top right ── */
-  .topbar-logo { display: none; }
   #jit-logo {
     position: fixed;
-    top: 1.2vh;
+    top: 1.4vh;
     right: 3.5vw;
-    height: clamp(30px, 4vh, 55px);
+    height: clamp(28px, 4.2vh, 56px);
     width: auto;
-    z-index: 10;
-    opacity: 0.92;
+    z-index: 20;
+    opacity: 0.93;
     pointer-events: none;
-    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.65));
   }
 
   /* Gold radial glow at centre */
@@ -132,15 +132,21 @@
   /* Petals */
   .petal {
     position: fixed;
-    border-radius: 50% 50% 50% 0 / 60% 60% 40% 40%;
-    opacity: 0; animation: fall linear infinite;
-    pointer-events: none; z-index: 4;
+    border-radius: 50% 50% 40% 40% / 60% 60% 45% 45%;
+    opacity: 0;
+    animation: fall ease-in-out infinite;
+    pointer-events: none;
+    z-index: 4;
+    box-shadow: inset 0 -2px 4px rgba(255,255,255,0.18);
   }
   @keyframes fall {
-    0%   { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-    10%  { opacity: 0.5; }
-    90%  { opacity: 0.1; }
-    100% { transform: translateY(110vh) rotate(420deg); opacity: 0; }
+    0%   { transform: translateY(-30px) translateX(0px) rotate(0deg); opacity: 0; }
+    8%   { opacity: 0.7; }
+    25%  { transform: translateY(22vh) translateX(22px) rotate(80deg); }
+    50%  { transform: translateY(52vh) translateX(-16px) rotate(200deg); }
+    75%  { transform: translateY(78vh) translateX(28px) rotate(320deg); }
+    92%  { opacity: 0.25; }
+    100% { transform: translateY(112vh) translateX(8px) rotate(420deg); opacity: 0; }
   }
 
   /* ── STAGE ── */
@@ -349,14 +355,80 @@
     font-size: clamp(8px, 0.85vw, 11px);
     color: rgba(249,246,240,0.38);
   }
+
+  /* ── MUSIC PLAYER BUTTON ── */
+  #yt-container { position:fixed; width:1px; height:1px; opacity:0; pointer-events:none; }
+  #mute-btn {
+    position: fixed;
+    bottom: 2.5vh;
+    left: 3.5vw;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    background: rgba(14,26,58,0.78);
+    border: 0.5px solid rgba(201,168,76,0.45);
+    color: var(--gold-lt);
+    font-family: 'Jost', sans-serif;
+    font-size: clamp(11px, 1.3vw, 15px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    padding: 0.55em 1.1em;
+    border-radius: 30px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  #mute-btn:hover { background: rgba(14,26,58,0.95); border-color: rgba(201,168,76,0.7); }
+  #mute-icon { font-size: 1.1em; }
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 680px) {
+    html, body { overflow: hidden; }
+
+    #lotus-layer { display: none; }
+
+    .h1 { width: 92vw; height: 92vw; }
+    .h2 { width: 108vw; height: 108vw; }
+
+    #buddha-layer img { width: min(92vw, 80vh); }
+    @keyframes buddhaGlow {
+      0%,100% { opacity: 0.18; transform: translateX(-8vw) scale(1); }
+      50%      { opacity: 0.25; transform: translateX(-8vw) scale(1.02); }
+    }
+
+    .stage { padding: 1.4vh 4vw; gap: 0.5vh; }
+
+    .topbar-sep { display: none; }
+    .topbar-date { font-size: 10px; letter-spacing: 0.02em; }
+    .topbar-team { display: none; }
+
+    #jit-logo { height: clamp(22px, 3.5vh, 38px); top: 1vh; right: 3vw; }
+
+    .centre { gap: 1.2vh; }
+    .quote-track { max-width: 100%; }
+    .quote-slide { padding: 0 2vw; }
+    .divider { max-width: 90vw; }
+
+    #mute-btn { bottom: 1.8vh; left: 3vw; font-size: 12px; padding: 0.45em 0.9em; }
+  }
 </style>
 </head>
 <body>
 
 <div class="bg-gradient"></div>
 
-<!-- JIT Group logo — top right corner -->
-<img id="jit-logo" src="2.png" alt="Just In Time Group">
+<!-- JIT Group logo — top right corner (place 2.png in this folder to show) -->
+<img id="jit-logo" src="2.png" alt=""
+  onerror="this.style.display='none'"
+  onload="document.querySelectorAll('.topbar-logo').forEach(el=>el.style.display='none')">
+
+<!-- Music player (hidden) + mute toggle button -->
+<div id="yt-container"><div id="yt-frame"></div></div>
+<button id="mute-btn" onclick="toggleMute()">
+  <span id="mute-icon">🔇</span>
+  <span id="mute-label">Music</span>
+</button>
 
 <!-- Lotus — right side, depth-of-field blur, blended edges -->
 <div id="lotus-layer">
@@ -543,17 +615,42 @@ resize(); initStars(); drawStars();
 function createPetal() {
   const p = document.createElement('div');
   p.className = 'petal';
-  const pink = Math.random() > 0.5;
-  p.style.cssText = `left:${Math.random()*100}vw;top:-20px;
-    animation-duration:${7+Math.random()*10}s;
-    animation-delay:${Math.random()*6}s;
-    transform:rotate(${Math.random()*360}deg);opacity:0;
-    background:${pink?'hsl(340,55%,78%)':'hsl(42,68%,70%)'};
-    width:${5+Math.random()*6}px;height:${8+Math.random()*9}px;`;
+  const hue = 315 + Math.random() * 35;
+  const sat = 62 + Math.random() * 22;
+  const lit = 72 + Math.random() * 16;
+  const dur = 20 + Math.random() * 14;
+  p.style.cssText = `left:${Math.random()*100}vw;top:-30px;
+    animation-duration:${dur}s;
+    animation-delay:${Math.random()*5}s;
+    background:hsl(${hue},${sat}%,${lit}%);
+    width:${9+Math.random()*7}px;height:${15+Math.random()*11}px;`;
   document.body.appendChild(p);
-  setTimeout(()=>p.remove(),20000);
+  setTimeout(()=>p.remove(), (dur + 6) * 1000);
 }
-setInterval(createPetal, 900);
+setInterval(createPetal, 1200);
+
+/* ── YOUTUBE MUSIC PLAYER ── */
+var ytPlayer, musicMuted = true;
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('yt-frame', {
+    height:'1', width:'1',
+    videoId: 'REPLACE_WITH_YOUTUBE_VIDEO_ID',
+    playerVars:{ autoplay:1, mute:1, loop:1, playlist:'REPLACE_WITH_YOUTUBE_VIDEO_ID', controls:0, rel:0 },
+    events:{ onReady: e => e.target.playVideo() }
+  });
+}
+function toggleMute() {
+  if (!ytPlayer || !ytPlayer.mute) return;
+  if (musicMuted) {
+    ytPlayer.unMute(); ytPlayer.setVolume(65); musicMuted = false;
+    document.getElementById('mute-icon').textContent = '🔊';
+    document.getElementById('mute-label').textContent = 'Mute';
+  } else {
+    ytPlayer.mute(); musicMuted = true;
+    document.getElementById('mute-icon').textContent = '🔇';
+    document.getElementById('mute-label').textContent = 'Music';
+  }
+}
 
 let cur = 0;
 const slides = document.getElementById('slides');
