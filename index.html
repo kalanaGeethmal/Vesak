@@ -52,8 +52,8 @@
   }
 
   @keyframes buddhaGlow {
-    0%,100% { opacity: 0.18; transform: translateX(-20vw) scale(1); }
-    50%      { opacity: 0.25; transform: translateX(-20vw) scale(1.02); }
+    0%,100% { opacity: 0.18; transform: translateX(-28vw) scale(1); }
+    50%      { opacity: 0.25; transform: translateX(-28vw) scale(1.02); }
   }
 
   /* Halo rings */
@@ -488,7 +488,7 @@
 
     <!-- Headline: team name only, no subtitle -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:0.6vh;">
-      <div class="eyebrow">කණ්ඩායම් මෙත්තා</div>
+
       <h1 class="headline-main"><em>මෙත්තා</em></h1>
       <div class="headline-en">Loving-kindness · The Light That Moves</div>
       <p class="pali-line">"සබ්බේ සත්තා සුඛිතා හොන්තු" &nbsp;·&nbsp; සියලු සත්ත්වයෝ සුවපත් වෙත්වා</p>
@@ -634,8 +634,8 @@ var ytPlayer, musicMuted = true;
 function onYouTubeIframeAPIReady() {
   ytPlayer = new YT.Player('yt-frame', {
     height:'1', width:'1',
-    videoId: 'REPLACE_WITH_YOUTUBE_VIDEO_ID',
-    playerVars:{ autoplay:1, mute:1, loop:1, playlist:'REPLACE_WITH_YOUTUBE_VIDEO_ID', controls:0, rel:0 },
+    videoId: '08_QKR_giVE',
+    playerVars:{ autoplay:1, mute:1, loop:1, playlist:'08_QKR_giVE', controls:0, rel:0, start:5 },
     events:{ onReady: e => e.target.playVideo() }
   });
 }
